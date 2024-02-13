@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using SeuMangaAqui.Persistence;
+
 namespace SeuMangaAqui
 {
     public class Program
@@ -13,6 +16,10 @@ namespace SeuMangaAqui
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddEntityFrameworkSqlServer()
+               .AddDbContext<MangaDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("Database"))
+               );
 
             var app = builder.Build();
 
